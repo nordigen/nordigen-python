@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "nordigen"
+version = "1.0.0"
+description = "Python client for Nordigen API"
+authors = ["Nordigen Solutions <support@nordigen.com>"]
+license = "MIT"
+homepage = "https://github.com/nordigen/nordigen-python"
+repository = "https://github.com/nordigen/nordigen-python"
+readme = "README.md"
+keywords = ["Nordigen", "Nordigen API", "OpenBanking"]
+include = ["CHANGELOG.md", "README.md", "LICENSE", "./nordigen/**/*"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.26.0"
+python-dotenv = "^0.19.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+black = "^21.10b0"
+pre-commit = "^2.15.0"
+isort = "^5.10.0"
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+| \.git
+| \.tox
+| \.venv
+| _build
+| buck-out
+| build
+| main.py
+| tests/
+)/
+'''
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

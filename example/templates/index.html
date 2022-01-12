@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://unpkg.com/nordigen-bank-ui@1.0.1/package/src/selector.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="institution-content-wrapper">
+      <div id="institution-modal-content">
+        <header class="institution-modal-header">
+          <span class="institution-modal-close">&times;</span>
+          <h2>Select your bank:</h2>
+        </header>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/nordigen-bank-ui@1.0.1/package/src/selector.js"></script>
+    <script>
+      const config = {
+          redirectUrl: 'https://www.nordigen.com',
+          logoUrl: 'https://cdn.nordigen.com/ais/Nordigen_Logo_Black.svg'
+      };
+
+      const data = {{institutions|tojson}};
+      new institutionSelector(data , 'institution-modal-content', config);
+
+      const institutionList = document.querySelectorAll(".list-institution a");
+
+      institutionList.forEach((institution) => {
+          institution.addEventListener('click', (e) => {
+
+              const id = institution.getAttribute('data-institution');
+              if (id) {
+                 window.location.href=`/agreements/${id}`;
+              }
+
+          }, false);
+      })
+    </script>
+  </body>
+</html>

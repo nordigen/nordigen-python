@@ -1,0 +1,17 @@
+[flake8]
+docstring-convention = all
+max-line-length = 79
+
+ignore =
+    # pydocstyle
+    D100
+    D104
+    D107
+    D203
+    D212
+    D213
+    D413
+    D407
+    D406
+    W503
+    D106
