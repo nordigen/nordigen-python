@@ -7,7 +7,7 @@ from flask import Flask, jsonify, redirect, render_template, session, url_for
 from nordigen import NordigenClient
 
 app = Flask(__name__)
-# set secret key
+# set Flask secret key
 app.config["SECRET_KEY"] = os.urandom(24)
 
 COUNTRY = "LV"
@@ -17,6 +17,7 @@ REDIRECT_URI = "http://127.0.0.1:5000/results"
 load_dotenv()
 
 # Init Nordigen client pass secret_id and secret_key generated from OB portal
+# In this example we will load secrets from .env file
 client = NordigenClient(
     secret_id=os.getenv("SECRET_ID"),
     secret_key=os.getenv("SECRET_KEY")

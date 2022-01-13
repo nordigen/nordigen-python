@@ -10,7 +10,6 @@ Before starting to use API you will need to create a new secret and get your `SE
 
 * Python >= 3.8
 
----
 
 ## Installation
 
@@ -19,7 +18,7 @@ Install library via pip package manager:
 ```
 pip install nordigen
 ```
----
+
 ## Example application
 
 Example code can be found in `main.py` file and Flask application can be found in the `example` directory
@@ -28,15 +27,14 @@ Example code can be found in `main.py` file and Flask application can be found i
 
 
 ```python
-import os
 from uuid import uuid4
 
 from nordigen import NordigenClient
 
 # initialize Nordigen client and pass SECRET_ID and SECRET_KEY
 client = NordigenClient(
-    secret_id=os.getenv("SECRET_ID"),
-    secret_key=os.getenv("SECRET_KEY")
+    secret_id="SECRET_ID",
+    secret_key="SECRET_KEY"
 )
 
 # Create new access and refresh token
@@ -69,8 +67,7 @@ init = client.initialize_session(
     reference_id=str(uuid4())
 )
 
-# Initialize authorization
-# Returns requisition_id and link to initiate authorization with a bank
+# Get requisition_id and link to initiate authorization process with a bank
 link = init.link # bank authorization link
 requisition_id = init.requisition_id
 ```
@@ -84,6 +81,7 @@ After successful authorization with a bank you can fetch your data (details, bal
 ```python
 
 # Get account id after you have completed authorization with a bank
+# requisition_id can be gathered from initialize_session response
 accounts = client.requisition.get_requisition_by_id(
     requisition_id=init.requisition_id
 )
@@ -92,7 +90,7 @@ accounts = client.requisition.get_requisition_by_id(
 account_id = accounts["accounts"][0]
 
 # Create account instance and provide your account id from previous step
-account = client.account(id=account_id)
+account = client.account_api(id=account_id)
 
 # Fetch account metadata
 meta_data = account.get_metadata()

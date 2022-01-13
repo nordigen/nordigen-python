@@ -1,17 +1,11 @@
-import os
 from uuid import uuid4
-
-from dotenv import load_dotenv
 from nordigen import NordigenClient
-
-load_dotenv()
-
 
 def main():
     # Load token from .env file or pass secrets as a string
     client = NordigenClient(
-        secret_key=os.getenv("SECRET_KEY"),
-        secret_id=os.getenv("SECRET_ID")
+        secret_id="SECRET_ID",
+        secret_key="SECRET_KEY"
     )
     # # generate access_token
     token_data = client.generate_token()
