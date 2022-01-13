@@ -75,7 +75,7 @@ class NordigenClient:
             value (str): token
         """
         self._token = value
-        self._headers["Authorization"] = value
+        self._headers["Authorization"] = f"Bearer {value}"
 
     def generate_token(self) -> TokenType:
         """
