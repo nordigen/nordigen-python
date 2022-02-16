@@ -49,6 +49,7 @@ class TestAgreementApi:
         response = agreement.delete_agreement(agreement_id=agreement_id)
         assert response["summary"] == "End User Agreement deleted"
 
+    @pytest.mark.skip(reason="available only for premium users")
     def test_accept_agreement(self, agreement: AgreementsApi, agreement_id):
         """
         Test accept end user agreement.
