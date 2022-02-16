@@ -10,7 +10,7 @@ def main():
     # generate access_token
     token_data = client.generate_token()
 
-    # # Use existing token
+    # Use existing token
     client.token = "YOUR_TOKEN"
 
     # Exchange refresh token for new access token
@@ -43,7 +43,7 @@ def main():
             "Account list is empty. Make sure you have completed authorization with a bank."
         )
 
-    # # Create account instance and provide your account id from previous step
+    # Create account instance and provide your account id from previous step
     account = client.account_api(id=account_id)
 
     # Get account data
