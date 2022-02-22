@@ -1,10 +1,8 @@
+from unittest.mock import patch
 import pytest
-import os
-from dotenv import load_dotenv
 
 from nordigen import NordigenClient
-
-load_dotenv()
+from .mocks import mocked_token
 
 
 @pytest.fixture(scope="module")
@@ -16,7 +14,12 @@ def client():
         [NordigenClient]: NordigenClient instance
     """
     nordigen = NordigenClient(
-        secret_id=os.getenv("SECRET_ID"), secret_key=os.getenv("SECRET_KEY")
+        secret_id="SECRET_ID", secret_key="SECRET_KEY"
     )
-    nordigen.generate_token()
-    yield nordigen
+    with patch('requests.post') as mock_request:
+        mock_request.return_value.json.return_value = mocked_token
+        response = nordigen.generate_token()
+        nordigen.token = response["access"]
+        yield nordigen
+
+
