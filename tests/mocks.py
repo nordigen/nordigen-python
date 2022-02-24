@@ -1,11 +1,10 @@
-
-
 mocked_token = {
     "access": "access_token",
     "access_expires": 86400,
     "refresh": "refresh_token",
     "refresh_expires": 2592000,
 }
+
 
 def generate_mock(id):
     return {
@@ -21,5 +20,5 @@ def generate_mock(id):
                 "created": "2022-02-21T15:41:40.350Z",
                 "redirect": "https://nordigen.com",
             },
-        ]
+        ],
     }

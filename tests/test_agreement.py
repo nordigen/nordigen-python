@@ -1,11 +1,14 @@
 import json
-from unittest.mock import patch
 from unittest import mock
+from unittest.mock import patch
+
 import pytest
 
 from nordigen.api import AgreementsApi
 from nordigen.nordigen import NordigenClient
+
 from .mocks import generate_mock
+
 
 class TestAgreementApi:
 
@@ -18,7 +21,6 @@ class TestAgreementApi:
         """Returns Agreement instance."""
         return AgreementsApi(client=client)
 
-
     def test_get_agreement_by_id(self, agreement: AgreementsApi):
         """
         Test get list of agreements by id.
@@ -27,10 +29,13 @@ class TestAgreementApi:
             agreement (AgreementsApi): AgreementsApi instance
         """
         with patch("requests.get") as mocked_request:
-            mocked_request.return_value.json.return_value = generate_mock(self.agreement_id)
-            response = agreement.get_agreement_by_id(agreement_id=self.agreement_id)
+            mocked_request.return_value.json.return_value = generate_mock(
+                self.agreement_id
+            )
+            response = agreement.get_agreement_by_id(
+                agreement_id=self.agreement_id
+            )
             assert response["results"][1]["id"] == self.agreement_id
-
 
     def test_delete_agreement(self, agreement: AgreementsApi):
         """
@@ -43,9 +48,10 @@ class TestAgreementApi:
             mock_request.return_value.json.return_value = {
                 "summary": "End User Agreement deleted"
             }
-            response = agreement.delete_agreement(agreement_id=self.agreement_id)
+            response = agreement.delete_agreement(
+                agreement_id=self.agreement_id
+            )
             assert response["summary"] == "End User Agreement deleted"
-
 
     def test_accept_agreement(self, agreement: AgreementsApi):
         """
@@ -57,17 +63,17 @@ class TestAgreementApi:
         with patch("requests.put") as mock_request:
             mock_request.return_value.json.return_value = {
                 "id": self.agreement_id,
-                "accepted": True
+                "accepted": True,
             }
             response = agreement.accept_agreement(
-                user_agent="Chrome", ip="127.0.0.1", agreement_id=self.agreement_id
+                user_agent="Chrome",
+                ip="127.0.0.1",
+                agreement_id=self.agreement_id,
             )
             assert response["id"] == self.agreement_id
 
     def test_create_agreement(
-        self,
-        agreement: AgreementsApi,
-        client: NordigenClient
+        self, agreement: AgreementsApi, client: NordigenClient
     ):
         """
         Test create agreement.
@@ -79,12 +85,8 @@ class TestAgreementApi:
         payload = {
             "max_historical_days": 90,
             "access_valid_for_days": 90,
-            "access_scope": [
-                "balances",
-                "details",
-                "transactions"
-            ],
-            "institution_id": self.institution_id
+            "access_scope": ["balances", "details", "transactions"],
+            "institution_id": self.institution_id,
         }
         with patch("requests.post") as mock_request:
             mock_request.return_value.json.return_value = {
@@ -92,22 +94,22 @@ class TestAgreementApi:
                 "created": "2022-02-22T10:20:10.977Z",
                 "max_historical_days": 90,
                 "access_valid_for_days": 90,
-                "institution_id": self.institution_id
+                "institution_id": self.institution_id,
             }
             response = agreement.create_agreement(self.institution_id)
             assert response["institution_id"] == self.institution_id
             assert "enduser_id" not in response
-            assert mock.call(
-                url = f"{client.base_url}/agreements/enduser/",
-                headers = client._headers,
-                data = json.dumps(payload)
-            ) in mock_request.call_args_list
-
+            assert (
+                mock.call(
+                    url=f"{client.base_url}/agreements/enduser/",
+                    headers=client._headers,
+                    data=json.dumps(payload),
+                )
+                in mock_request.call_args_list
+            )
 
     def test_get_agreements(
-        self,
-        agreement: AgreementsApi,
-        client: NordigenClient
+        self, agreement: AgreementsApi, client: NordigenClient
     ):
         """
         Test get agreements.
@@ -117,11 +119,13 @@ class TestAgreementApi:
             client: (NordigenClient): NordigenClient instance
         """
         with patch("requests.get") as mock_request:
-            mock_request.return_value.json.return_value = generate_mock(self.agreement_id)
+            mock_request.return_value.json.return_value = generate_mock(
+                self.agreement_id
+            )
             response = agreement.get_agreements()
             assert response["results"][1]["id"] == self.agreement_id
             assert mock.call(
-                url = f"{client.base_url}/agreements/enduser/",
-                headers = client._headers,
-                params = {"limit": 100, "offset": 0}
+                url=f"{client.base_url}/agreements/enduser/",
+                headers=client._headers,
+                params={"limit": 100, "offset": 0},
             )
