@@ -64,7 +64,7 @@ class TestClient(unittest.TestCase):
             mock.call(
                 url=f"{self.url}/sample",
                 headers=self.client._headers,
-                params=None,
+                params={},
             )
             in mock_request.call_args_list
         )

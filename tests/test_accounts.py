@@ -62,7 +62,6 @@ class TestAccountApi:
                 ]
             }
             response = account.get_balances()
-            print(response)
             assert response["balances"][0]["balanceType"] == "EUR"
 
     def test_get_details(self, account: AccountApi):
@@ -111,7 +110,7 @@ class TestAccountApi:
                 mock.call(
                     url=f"{client.base_url}/accounts/{self.account_id}/transactions/",
                     headers=client._headers,
-                    params=None,
+                    params={},
                 )
                 in mock_request.call_args_list
             )

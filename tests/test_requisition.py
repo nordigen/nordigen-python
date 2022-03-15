@@ -47,7 +47,7 @@ class TestRequisitionApi:
                 mock.call(
                     url=f"{client.base_url}/requisitions/",
                     headers=client._headers,
-                    params={"limit": 100, "offset": 0},
+                    params={"limit": 100},
                 )
                 in mock_request.call_args_list
             )
