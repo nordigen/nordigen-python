@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Dict, Final
+from typing import TYPE_CHECKING, Dict, Final, Optional
 
 from nordigen.types import AccountBalances
 from nordigen.types.http_enums import HTTPMethod
@@ -30,7 +30,7 @@ class AccountApi:
         self.__request = client.request
         self.__id: str = id
 
-    def __get(self, endpoint: str):
+    def __get(self, endpoint: str, parameters: Dict = {}):
         """
         Construct get request.
 
@@ -41,7 +41,7 @@ class AccountApi:
             [type]: [description]
         """
         url = f"{self.__ENDPOINT}/{self.__id}/{endpoint}/"
-        return self.__request(HTTPMethod.GET, f"{url}")
+        return self.__request(HTTPMethod.GET, f"{url}", parameters)
 
     def get_metadata(self) -> AccountData:
         """
@@ -76,7 +76,7 @@ class AccountApi:
         """
         return self.__get("details")
 
-    def get_transactions(self) -> Dict:
+    def get_transactions(self, date_from: Optional[str] = None, date_to: Optional[str] = None) -> Dict:
         """
         Access account transactions.
         Transactions will be returned in Berlin Group PSD2 format.
@@ -85,4 +85,8 @@ class AccountApi:
         Returns:
             Dict: account transactions details
         """
-        return self.__get("transactions")
+        date_range = {
+            "date_from": date_from,
+            "date_to": date_to
+        }
+        return self.__get("transactions", date_range)

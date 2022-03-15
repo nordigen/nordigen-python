@@ -10,6 +10,7 @@ from nordigen.api import (
     InstitutionsApi,
     RequisitionsApi,
 )
+from nordigen.utils.filter import DataFilter
 from nordigen.types.http_enums import HTTPMethod
 from nordigen.types.types import RequisitionDto, TokenType
 
@@ -43,6 +44,7 @@ class NordigenClient:
         self.institution = InstitutionsApi(client=self)
         self.requisition = RequisitionsApi(client=self)
         self.agreement = AgreementsApi(client=self)
+        self.data_filter = DataFilter()
 
     def account_api(self, id: str) -> AccountApi:
         """
@@ -139,6 +141,9 @@ class NordigenClient:
             "url": f"{self.base_url}/{endpoint}",
             "headers": headers if headers else self._headers,
         }
+
+        data = self.data_filter.filter_payload(data)
+
         if method == HTTPMethod.GET:
             response = requests.get(**request_meta, params=data)
         elif method == HTTPMethod.POST:
