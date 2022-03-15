@@ -7,11 +7,11 @@ def main():
         secret_id="SECRET_ID",
         secret_key="SECRET_KEY"
     )
-    # # generate access_token
+    # generate access_token
     token_data = client.generate_token()
 
     # Use existing token
-    # client.token = "YOUR_TOKEN"
+    client.token = "YOUR_TOKEN"
 
     # Exchange refresh token for new access token
     new_token = client.exchange_token(token_data["refresh"])
@@ -51,7 +51,8 @@ def main():
     balances = account.get_balances()
     details = account.get_details()
     transactions = account.get_transactions()
-
+    # Filter transactions by specific date range
+    transactions = account.get_transactions(date_from="2021-12-01", date_to="2022-01-21")
 
 if __name__ == "__main__":
     main()
