@@ -40,7 +40,6 @@ class AccountApi:
         Returns:
             [type]: [description]
         """
-        print(parameters)
         url = f"{self.__ENDPOINT}/{self.__id}/{endpoint}/"
         return self.__request(HTTPMethod.GET, f"{url}", parameters)
 
