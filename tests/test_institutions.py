@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import MagicMock, Mock, patch
 
-from nordigen.api import InstitutionsApi
 from nordigen import NordigenClient
+from nordigen.api import InstitutionsApi
 
 
 class TestInstitutionsAPI(unittest.TestCase):
