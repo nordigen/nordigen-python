@@ -6,6 +6,7 @@ from requests.models import HTTPError, Response
 
 from nordigen.api import (
     AccountApi,
+    PremiumAccountApi,
     AgreementsApi,
     InstitutionsApi,
     RequisitionsApi,
@@ -23,15 +24,12 @@ class NordigenClient:
     ---------
     secret_key (str): Generated secret_key
     secret_id (str): Generated secret_id
+    premium (bool): Use premium endpoints
     """
 
     __ENDPOINT: Final = "token"
 
-    def __init__(
-        self,
-        secret_key: str,
-        secret_id: str,
-    ) -> None:
+    def __init__(self, secret_key: str, secret_id: str) -> None:
         self.secret_key = secret_key
         self.secret_id = secret_id
         self.base_url = "https://ob.nordigen.com/api/v2"
@@ -57,6 +55,18 @@ class NordigenClient:
             AccountApi: Account instance
         """
         return AccountApi(client=self, id=id)
+
+    def premium_account_api(self, id: str) -> PremiumAccountApi:
+        """
+        Create Account api instance using premium endpoints.
+
+        Args:
+            id (str): account id
+
+        Returns:
+            PremiumAccountApi: Account instance
+        """
+        return PremiumAccountApi(client=self, id=id)
 
     @property
     def token(self):
