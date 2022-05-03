@@ -1,5 +1,5 @@
 import json
-from typing import Dict, Final
+from typing import Dict, Final, Optional
 
 import requests
 from requests.models import HTTPError, Response
@@ -40,7 +40,7 @@ class NordigenClient:
             "Content-Type": "application/json",
             "User-Agent": "Nordigen-Python-v2",
         }
-        self._token = None
+        self._token: Optional[str] = None
         self.institution = InstitutionsApi(client=self)
         self.requisition = RequisitionsApi(client=self)
         self.agreement = AgreementsApi(client=self)
@@ -93,7 +93,8 @@ class NordigenClient:
             payload,
             self._headers,
         )
-        self._headers["Authorization"] = f"Bearer {response['access']}"
+
+        self.token = response["access"]
         return response
 
     def exchange_token(self, refresh_token: str) -> TokenType:
@@ -107,12 +108,15 @@ class NordigenClient:
             TokenType: Dict that contains access and refresh token
         """
         payload = {"refresh": refresh_token}
-        return self.request(
+        response = self.request(
             HTTPMethod.POST,
             f"{self.__ENDPOINT}/refresh/",
             payload,
             self._headers,
         )
+
+        self.token = response["access"]
+        return response
 
     def request(
         self,

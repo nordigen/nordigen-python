@@ -28,26 +28,28 @@ class TestClient(unittest.TestCase):
 
         mock_request.return_value.json.return_value = mocked_token
         response = self.client.generate_token()
-        response["access_expires"] == 86400
-        response["access"] == "access token"
-        assert (
-            mock.call(
-                url=f"{self.url}/token/new/",
-                headers=self.client._headers,
-                data=json.dumps(payload),
-            )
-            in mock_request.call_args_list
+
+        mock_request.assert_called_with(
+            url=f"{self.url}/token/new/",
+            headers=self.client._headers,
+            data=json.dumps(payload),
         )
+
+        assert response["access_expires"] == 86400
+        assert response["access"] == mocked_token["access"]
+        assert self.client.token == "access_token"
 
     @patch("requests.post")
     def test_exchange_token(self, mock_request):
         """Test token exchange."""
         mock_request.return_value.json.return_value = {
-            "access": "access_token",
+            "access": "new_access_token",
             "access_expires": 86400,
         }
+
         response = self.client.exchange_token(refresh_token="refresh_token")
-        assert response["access"] == "access_token"
+        assert self.client.token == "new_access_token"
+        assert response["access"] == "new_access_token"
 
     @patch("requests.get")
     def test_get_request(self, mock_request):
