@@ -27,10 +27,10 @@ class AccountApi:
     __ENDPOINT: Final = "accounts"
 
     def __init__(self, client: NordigenClient, id: str) -> None:
-        self.__request = client.request
-        self.__id: str = id
+        self._request = client.request
+        self._id: str = id
 
-    def __get(self, endpoint: str, parameters: Dict = {}):
+    def _get(self, endpoint: str, parameters: Optional[Dict] = None):
         """
         Construct get request.
 
@@ -40,8 +40,8 @@ class AccountApi:
         Returns:
             [type]: [description]
         """
-        url = f"{self.__ENDPOINT}/{self.__id}/{endpoint}/"
-        return self.__request(HTTPMethod.GET, f"{url}", parameters)
+        url = f"{self.__ENDPOINT}/{self._id}/{endpoint}/"
+        return self._request(HTTPMethod.GET, f"{url}", parameters)
 
     def get_metadata(self) -> AccountData:
         """
@@ -52,9 +52,7 @@ class AccountApi:
         Returns:
             AccountData: account metadata
         """
-        return self.__request(
-            HTTPMethod.GET, f"{self.__ENDPOINT}/{self.__id}/"
-        )
+        return self._request(HTTPMethod.GET, f"{self.__ENDPOINT}/{self._id}/")
 
     def get_balances(self) -> AccountBalances:
         """
@@ -64,7 +62,7 @@ class AccountApi:
         Returns:
             AccountBalances: account balance data
         """
-        return self.__get("balances")
+        return self._get("balances")
 
     def get_details(self) -> AccountDetails:
         """
@@ -74,9 +72,11 @@ class AccountApi:
         Returns:
             AccountDetails: account details data
         """
-        return self.__get("details")
+        return self._get("details")
 
-    def get_transactions(self, date_from: Optional[str] = None, date_to: Optional[str] = None) -> Dict:
+    def get_transactions(
+        self, date_from: Optional[str] = None, date_to: Optional[str] = None
+    ) -> Dict:
         """
         Access account transactions.
         Transactions will be returned in Berlin Group PSD2 format.
@@ -85,8 +85,36 @@ class AccountApi:
         Returns:
             Dict: account transactions details
         """
-        date_range = {
-            "date_from": date_from,
-            "date_to": date_to
-        }
-        return self.__get("transactions", date_range)
+        date_range = {"date_from": date_from, "date_to": date_to}
+        return self._get("transactions", date_range)
+
+
+class PremiumAccountApi(AccountApi):
+    """
+    Account API endpoints to fetch accounts, details, balances and transactions.
+    Uses premium endpoints.
+
+    Attributes
+    ---------
+    client (NordigenClient):
+        Injectable NordigenClient object to make an http requests
+    id (str):
+        account id retrieved from request get_requisition_by_id()
+
+    Returns: None
+    """
+
+    __PREMIUM_ENDPOINT: Final = "accounts/premium"
+
+    def _get(self, endpoint: str, parameters: Optional[Dict] = None):
+        """
+        Construct get request.
+
+        Args:
+            endpoint (str): endpoint
+
+        Returns:
+            [type]: [description]
+        """
+        url = f"{self.__PREMIUM_ENDPOINT}/{self._id}/{endpoint}/"
+        return self._request(HTTPMethod.GET, f"{url}", parameters)
