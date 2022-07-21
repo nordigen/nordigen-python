@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Final, List
+from typing import TYPE_CHECKING, Final, List, Optional
 
 from nordigen.types import Institutions
 from nordigen.types.http_enums import HTTPMethod
@@ -26,18 +26,23 @@ class InstitutionsApi:
         self.__request = client.request
         self.ENDPOINT = "institutions"
 
-    def get_institutions(self, country: str) -> List[Institutions]:
+    def get_institutions(self, country: Optional[str] = None) -> List[Institutions]:
         """
-        Get all available Institutions (banks) in a given country.
+        Get all available Institutions (banks) in a given country or for all countries if
+        country isn't specified.
 
         Args:
-            country (str): Two-character country code
+            country (str, optional): Two-character country code
 
         Returns:
             List[Institutions]: List of institutions in a given country
         """
+        url = self.ENDPOINT
+        if country:
+            url = f"{self.ENDPOINT}/?country={country}"
+
         return self.__request(
-            HTTPMethod.GET, f"{self.ENDPOINT}/?country={country}"
+            HTTPMethod.GET, url
         )
 
     def get_institution_by_id(self, id: str) -> Institutions:
