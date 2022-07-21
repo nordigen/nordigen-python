@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0]
+
+- Add default timeout for requests, allow it to be changed
+- Make country argument optional for `get_institutions` method to allow getting all institutions at once
 
 ## [1.1.0] - 2022-05-03
 
