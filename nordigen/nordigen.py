@@ -31,6 +31,7 @@ class NordigenClient:
         self,
         secret_key: str,
         secret_id: str,
+        timeout: int = 10,
     ) -> None:
         self.secret_key = secret_key
         self.secret_id = secret_id
@@ -45,6 +46,7 @@ class NordigenClient:
         self.requisition = RequisitionsApi(client=self)
         self.agreement = AgreementsApi(client=self)
         self.data_filter = DataFilter()
+        self._timeout = timeout
 
     def account_api(self, id: str) -> AccountApi:
         """
@@ -149,13 +151,13 @@ class NordigenClient:
         data = self.data_filter.filter_payload(data)
 
         if method == HTTPMethod.GET:
-            response = requests.get(**request_meta, params=data)
+            response = requests.get(**request_meta, params=data, timeout=self._timeout)
         elif method == HTTPMethod.POST:
-            response = requests.post(**request_meta, data=json.dumps(data))
+            response = requests.post(**request_meta, data=json.dumps(data), timeout=self._timeout)
         elif method == HTTPMethod.PUT:
-            response = requests.put(**request_meta, data=json.dumps(data))
+            response = requests.put(**request_meta, data=json.dumps(data), timeout=self._timeout)
         elif method == HTTPMethod.DELETE:
-            response = requests.delete(**request_meta, params=data)
+            response = requests.delete(**request_meta, params=data, timeout=self._timeout)
         else:
             raise Exception(f'Method "{method}" is not supported')
 
