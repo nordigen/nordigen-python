@@ -35,6 +35,7 @@ def main():
     accounts = client.requisition.get_requisition_by_id(
         requisition_id=init.requisition_id
     )
+
     # Get account id from the list.
     try:
         account_id = accounts["accounts"][0]
@@ -53,6 +54,14 @@ def main():
     transactions = account.get_transactions()
     # Filter transactions by specific date range
     transactions = account.get_transactions(date_from="2021-12-01", date_to="2022-01-21")
+
+    # Premium
+    premium_transactions = account.get_premium_transactions(
+        country="LV",
+        date_from="2021-12-01",
+        date_to="2022-01-21"
+    )
+    premium_details = account.get_premium_details()
 
 if __name__ == "__main__":
     main()
