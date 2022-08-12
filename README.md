@@ -102,7 +102,19 @@ balances = account.get_balances()
 transactions = account.get_transactions()
 # Filter transactions by specific date range
 transactions = account.get_transactions(date_from="2021-12-01", date_to="2022-01-21")
+```
 
+## Premium endpoints
+
+```python
+# Get premium transactions. Country and date parameters are optional
+premium_transactions = account.get_premium_transactions(
+    country="LV",
+    date_from="2021-12-01",
+    date_to="2022-01-21"
+)
+# Get premium details
+premium_details = account.get_premium_details()
 ```
 
 ## Support
