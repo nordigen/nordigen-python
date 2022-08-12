@@ -104,6 +104,7 @@ class TestAgreementApi:
                     url=f"{client.base_url}/agreements/enduser/",
                     headers=client._headers,
                     data=json.dumps(payload),
+                    timeout = 10,
                 )
                 in mock_request.call_args_list
             )

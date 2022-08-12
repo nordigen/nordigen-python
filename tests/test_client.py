@@ -6,15 +6,17 @@ from unittest.mock import patch
 from nordigen import NordigenClient
 from nordigen.types.http_enums import HTTPMethod
 
-from .mocks import mocked_token
+from tests.mocks import mocked_token
 
 
 class TestClient(unittest.TestCase):
     """Test Nordigen client."""
 
     def setUp(self) -> None:
+        """setUp."""
         self.client = NordigenClient(
-            secret_id="SECRET_ID", secret_key="SECRET_KEY"
+            secret_id="SECRET_ID",
+            secret_key="SECRET_KEY",
         )
         self.url = self.client.base_url
 
@@ -33,6 +35,7 @@ class TestClient(unittest.TestCase):
             url=f"{self.url}/token/new/",
             headers=self.client._headers,
             data=json.dumps(payload),
+            timeout = 10,
         )
 
         assert response["access_expires"] == 86400
@@ -67,6 +70,7 @@ class TestClient(unittest.TestCase):
                 url=f"{self.url}/sample",
                 headers=self.client._headers,
                 params={},
+                timeout = 10,
             )
             in mock_request.call_args_list
         )
@@ -88,6 +92,7 @@ class TestClient(unittest.TestCase):
                 url=f"{self.url}/sample",
                 headers=self.client._headers,
                 data=json.dumps(payload),
+                timeout = 10,
             )
             in mock_request.call_args_list
         )

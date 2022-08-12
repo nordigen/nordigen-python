@@ -48,6 +48,7 @@ class TestRequisitionApi:
                     url=f"{client.base_url}/requisitions/",
                     headers=client._headers,
                     params={"limit": 100},
+                    timeout = 10,
                 )
                 in mock_request.call_args_list
             )
