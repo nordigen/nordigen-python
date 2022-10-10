@@ -67,11 +67,11 @@ class Balances(TypedDict):
 
 class AccountBalances(TypedDict):
     balances: Balances
-    balanceType: str
-    creditLimitIncluded: Optional[bool]
-    lastChangeDateTime: Optional[datetime]
-    referenceDate: Optional[datetime]
-    lastCommittedTransaction: Optional[str]
+    balance_type: str
+    credit_limit_included: Optional[bool]
+    last_change_date_time: Optional[datetime]
+    reference_date: Optional[datetime]
+    last_committed_transaction: Optional[str]
 
 
 class AccountData(TypedDict):
@@ -79,7 +79,8 @@ class AccountData(TypedDict):
     created: datetime
     lastAccessed: datetime
     iban: str
-    aspspIdentifier: str
+    bban: Optional[str]
+    institutionId: str
     status: str
 
 

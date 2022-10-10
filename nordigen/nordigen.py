@@ -32,21 +32,22 @@ class NordigenClient:
         secret_key: str,
         secret_id: str,
         timeout: int = 10,
+        base_url: str = "https://ob.nordigen.com/api/v2"
     ) -> None:
         self.secret_key = secret_key
         self.secret_id = secret_id
-        self.base_url = "https://ob.nordigen.com/api/v2"
+        self.base_url = base_url
         self._headers = {
             "accept": "application/json",
             "Content-Type": "application/json",
             "User-Agent": "Nordigen-Python-v2",
         }
         self._token: Optional[str] = None
+        self._timeout = timeout
         self.institution = InstitutionsApi(client=self)
         self.requisition = RequisitionsApi(client=self)
         self.agreement = AgreementsApi(client=self)
         self.data_filter = DataFilter()
-        self._timeout = timeout
 
     def account_api(self, id: str) -> AccountApi:
         """

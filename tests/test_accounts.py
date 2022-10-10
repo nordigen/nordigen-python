@@ -1,5 +1,6 @@
 from unittest import mock
 from unittest.mock import patch
+from nordigen.nordigen import NordigenClient
 
 import pytest
 
@@ -11,6 +12,32 @@ class TestAccountApi:
 
     account_id = "1d2b827b-9ca2-4adb-b4c3-0deb76a0ac50"
     iban = "LT213250024324970797"
+    mocked_data = {
+        "details": {
+            "account": {
+                "resourceId": "534252452",
+                "iban": iban,
+                "currency": "EUR",
+            }
+        },
+        "balances": {
+            "balanceAmount": {
+                "amount": "657.49",
+                "currency": "EUR",
+            },
+            "balanceType": "EUR",
+        },
+        "transactions": {
+            "booked": [
+                {
+                    "trxAmount": {
+                        "currency": "EUR",
+                        "amount": "328.18",
+                    }
+                }
+            ],
+        }
+    }
 
     @pytest.fixture(scope="class")
     def account(self, client) -> AccountApi:
@@ -51,18 +78,10 @@ class TestAccountApi:
         """
         with patch("requests.get") as mock_request:
             mock_request.return_value.json.return_value = {
-                "balances": [
-                    {
-                        "balanceAmount": {
-                            "amount": "657.49",
-                            "currency": "EUR",
-                        },
-                        "balanceType": "EUR",
-                    }
-                ]
+                "balances": self.mocked_data["balances"]
             }
             response = account.get_balances()
-            assert response["balances"][0]["balanceType"] == "EUR"
+            assert response["balances"]["balanceType"] == "EUR"
 
     def test_get_details(self, account: AccountApi):
         """
@@ -72,17 +91,11 @@ class TestAccountApi:
             account (AccountApi): AccountApi instance
         """
         with patch("requests.get") as mock_request:
-            mock_request.return_value.json.return_value = {
-                "account": {
-                    "resourceId": "534252452",
-                    "iban": self.iban,
-                    "currency": "EUR",
-                }
-            }
+            mock_request.return_value.json.return_value = self.mocked_data["details"]
             response = account.get_details()
             assert response["account"]["iban"] == self.iban
 
-    def test_get_transactions(self, account: AccountApi, client):
+    def test_get_transactions(self, account: AccountApi, client: NordigenClient):
         """
         Test get account transactions.
 
@@ -91,26 +104,60 @@ class TestAccountApi:
         """
         with patch("requests.get") as mock_request:
             mock_request.return_value.json.return_value = {
-                "trx": {
-                    "booked": [
-                        {
-                            "trxAmount": {
-                                "currency": "EUR",
-                                "amount": "328.18",
-                            },
-                        }
-                    ]
-                }
+                "transactions": self.mocked_data["transactions"]
             }
             response = account.get_transactions()
+
             assert (
-                response["trx"]["booked"][0]["trxAmount"]["currency"] == "EUR"
+                response["transactions"]["booked"][0]["trxAmount"]["currency"] == "EUR"
             )
             assert (
                 mock.call(
                     url=f"{client.base_url}/accounts/{self.account_id}/transactions/",
                     headers=client._headers,
                     params={},
+                    timeout = 10,
                 )
                 in mock_request.call_args_list
+            )
+
+    def test_get_premium_details(self, account: AccountApi, client):
+        with patch("requests.get") as mock_request:
+            mock_request.return_value.json.return_value = self.mocked_data["details"]
+            response = account.get_premium_details(country="LV")
+            assert response["account"]["iban"] == self.iban
+
+            mock_request.assert_called_once_with(
+                url=f"{client.base_url}/accounts/premium/{self.account_id}/details",
+                headers=client._headers,
+                params={"country": "LV"},
+                timeout = 10,
+            )
+
+    def test_get_premium_transactions(self, account: AccountApi, client: NordigenClient):
+        """
+        Test get premium transactions
+
+        Args:
+            account (AccountApi): AccountApi instance
+            client (NordigenClient): NordigenClient instance
+        """
+        with patch("requests.get") as mock_request:
+            mock_request.return_value.json.return_value = {
+                "transactions": self.mocked_data["transactions"]
+            }
+            account.get_premium_transactions(
+                country="LV",
+                date_from="2021-12-01",
+                date_to="2022-01-21"
+            )
+            mock_request.assert_called_once_with(
+                url=f"{client.base_url}/accounts/premium/{self.account_id}/transactions",
+                headers=client._headers,
+                params={
+                    "country": "LV",
+                    "date_from": "2021-12-01",
+                    "date_to": "2022-01-21",
+                },
+                timeout = 10,
             )
