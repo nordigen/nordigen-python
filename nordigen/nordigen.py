@@ -8,11 +8,11 @@ from nordigen.api import (
     AccountApi,
     AgreementsApi,
     InstitutionsApi,
-    RequisitionsApi,
+    RequisitionsApi
 )
-from nordigen.utils.filter import DataFilter
 from nordigen.types.http_enums import HTTPMethod
 from nordigen.types.types import RequisitionDto, TokenType
+from nordigen.utils.filter import DataFilter
 
 
 class NordigenClient:
@@ -108,7 +108,7 @@ class NordigenClient:
             refresh_token (str): refresh token
 
         Returns:
-            TokenType: Dict that contains access and refresh token
+            TokenType: Dict that contains new access token
         """
         payload = {"refresh": refresh_token}
         response = self.request(
