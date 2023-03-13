@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.1] - 2023-03-13
+
+- Add the response in the response kwargs when instantiating the `HTTPError`
+
 ## [1.3.0] - 2022-08-15
 
 - Add Premium endpoints
