@@ -166,7 +166,7 @@ class NordigenClient:
             return response.json()
 
         raise HTTPError(
-            {"response": response.json(), "status": response.status_code}
+            {"response": response.json(), "status": response.status_code}, response=response
         )
 
     def initialize_session(
