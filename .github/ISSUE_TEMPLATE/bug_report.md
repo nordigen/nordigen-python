@@ -24,4 +24,4 @@ If applicable, add screenshots to help explain your problem.
 **Additional context**
 Add any other context about the problem here.
 
-If you're having general trouble with your Nordigen integration or bank related issue, please reach out to our support via email [support@nordigen.com](support@nordigen.com)
+If you're having general trouble with your Nordigen integration or bank related issue, please reach out to our support via email [bank-account-data-support@gocardless.com](bank-account-data-support@gocardless.com)
