@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.2] - 2023-06-21
+
+- Update URLs to represent GoCardless
+
 ## [1.3.1] - 2023-03-13
 
 - Add the response in the response kwargs when instantiating the `HTTPError`

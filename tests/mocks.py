@@ -13,12 +13,12 @@ def generate_mock(id):
             {
                 "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "created": "2022-02-21T15:41:40.350Z",
-                "redirect": "https://nordigen.com",
+                "redirect": "https://gocardless.com",
             },
             {
                 "id": id,
                 "created": "2022-02-21T15:41:40.350Z",
-                "redirect": "https://nordigen.com",
+                "redirect": "https://gocardless.com",
             },
         ],
     }

@@ -25,7 +25,7 @@ def main():
         # institution id
         institution_id=institution_id,
         # redirect url after successful authentication
-        redirect_uri="https://nordigen.com",
+        redirect_uri="https://gocardless.com",
         # additional layer of unique ID defined by you
         reference_id=str(uuid4()),
     )

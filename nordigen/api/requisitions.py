@@ -60,7 +60,7 @@ class RequisitionsApi:
             enduser_id (str): a unique end-user ID of someone who's using your services, usually it's a UUID
             agreements (List[str] or str optional): agreement is provided as a string.
             user_language (str, optional): to enforce a language for all end user steps hosted
-                by Nordigen passed as a two-letter country code. Defaults to None
+                by GoCardless passed as a two-letter country code. Defaults to None
 
         Returns:
             Requisition: [description]

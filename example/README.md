@@ -2,7 +2,7 @@
 
 ## Set-up
 
-You'll need to get your `SECRET_ID` and `SECRET_KEY` from the [Nordigen's Open Banking Portal](https://ob.nordigen.com/).
+You'll need to get your `SECRET_ID` and `SECRET_KEY` from the [GoCardless' Bank Account Data Portal](https://bankaccountdata.gocardless.com/).
 In **app.py** file provide the token as a parameter for `NordigenClient`.
 
 ```python

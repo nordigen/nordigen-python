@@ -1,10 +1,10 @@
 # Nordigen Python
 
-This is official Python client library for [Nordigen](https://nordigen.com/en) API
+This is official Python client library for [GoCardless Bank Account Data](https://gocardless.com/bank-account-data/) API
 
-For a full list of endpoints and arguments, see the [docs](https://nordigen.com/en/account_information_documenation/api-documention/overview/).
+For a full list of endpoints and arguments, see the [docs](https://developer.gocardless.com/bank-account-data/quick-start-guide).
 
-Before starting to use API you will need to create a new secret and get your `SECRET_ID` and `SECRET_KEY` from the [Nordigen's Open Banking Portal](https://ob.nordigen.com/user-secrets/).
+Before starting to use API you will need to create a new secret and get your `SECRET_ID` and `SECRET_KEY` from the [GoCardless Bank Account Data Portal](https://bankaccountdata.gocardless.com/user-secrets/).
 
 ## Requirements
 
@@ -62,7 +62,7 @@ init = client.initialize_session(
     # institution id
     institution_id=institution_id,
     # redirect url after successful authentication
-    redirect_uri="https://nordigen.com",
+    redirect_uri="https://gocardless.com",
     # additional layer of unique ID defined by you
     reference_id=str(uuid4())
 )
@@ -119,4 +119,4 @@ premium_details = account.get_premium_details()
 
 ## Support
 
-For any inquiries please contact support at [support@nordigen.com](support@nordigen.com) or create an issue in repository.
+For any inquiries please contact support at [bank-account-data-support@gocardless.com](bank-account-data-support@gocardless.com) or create an issue in repository.

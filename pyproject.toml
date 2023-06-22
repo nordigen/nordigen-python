@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "nordigen"
-version = "1.3.1"
-description = "Python client for Nordigen API"
-authors = ["Nordigen Solutions <support@nordigen.com>"]
+version = "1.3.2"
+description = "Python client for GoCardless Bank Account Data API"
+authors = ["Nordigen Solutions <bank-account-data-support@gocardless.com>"]
 license = "MIT"
 homepage = "https://github.com/nordigen/nordigen-python"
 repository = "https://github.com/nordigen/nordigen-python"
 readme = "README.md"
-keywords = ["Nordigen", "Nordigen API", "OpenBanking"]
+keywords = ["GoCardless", "Nordigen", "Nordigen API", "OpenBanking"]
 include = ["CHANGELOG.md", "README.md", "LICENSE", "./nordigen/**/*"]
 
 [tool.poetry.dependencies]

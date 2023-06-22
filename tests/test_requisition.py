@@ -13,7 +13,7 @@ class TestRequisitionApi:
     """Test Requisition api."""
 
     enduser_id = "1234567"
-    redirect_uri = "https://ob.nordigen.com"
+    redirect_uri = "https://ob.gocardless.com"
     institution_id = "REVOLUT_REVOGB21"
     requisition_id = "d49dffbb-01dc-498c-a674-8cb725aad14a"
 
