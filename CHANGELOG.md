@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.3.3] - 2024-02-09
+## [1.4.0] - 2024-02-09
 
 - Update base URL form ob.gocardless.com to bankaccountdata.gocardless.com
 
