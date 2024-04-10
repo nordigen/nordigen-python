@@ -1,9 +1,5 @@
 # Changelog
 
-## [1.4.1] - 2024-04-10
-
-- Update cdn URL from cdn.nordigen.com to cdn-logos.gocardless.com
-
 ## [1.4.0] - 2024-02-09
 
 - Update base URL form ob.gocardless.com to bankaccountdata.gocardless.com
