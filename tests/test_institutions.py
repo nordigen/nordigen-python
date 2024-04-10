@@ -26,7 +26,7 @@ class TestInstitutionsAPI(unittest.TestCase):
         mock_response.return_value = [
             {
                 "id": "CITADELE_PARXLV22",
-                "logo": "https://cdn.nordigen.com/ais/CITADELE_PARXLV22.png",
+                "logo": "https://cdn-logos.gocardless.com/ais/CITADELE_PARXLV22.png",
                 "name": "Citadele",
                 "transaction_total_days": "730",
             },
@@ -36,7 +36,7 @@ class TestInstitutionsAPI(unittest.TestCase):
                 "bic": "REVOGB21",
                 "transaction_total_days": "730",
                 "countries": ["GB"],
-                "logo": "https://cdn.nordigen.com/ais/REVOLUT_REVOGB21.png",
+                "logo": "https://cdn-logos.gocardless.com/ais/REVOLUT_REVOGB21.png",
             },
         ]
         response = self.mock_institution.get_institutions(country="LV")
@@ -54,7 +54,7 @@ class TestInstitutionsAPI(unittest.TestCase):
         """
         mock_response.return_value = {
             "id": "CITADELE_PARXLV22",
-            "logo": "https://cdn.nordigen.com/ais/CITADELE_PARXLV22.png",
+            "logo": "https://cdn-logos.gocardless.com/ais/CITADELE_PARXLV22.png",
             "name": "Citadele",
             "transaction_total_days": "730",
         }
