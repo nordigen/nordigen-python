@@ -76,7 +76,7 @@ class InstitutionsApi:
         institutions = self.get_institutions(country)
 
         for bank in institutions:
-            if institution.lower() in bank["name"].lower():
+            if institution.lower() == bank["name"].lower():
                 return bank["id"]
 
         raise ValueError(f"Institution: {institution} is not found")
