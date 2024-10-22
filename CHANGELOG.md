@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.1] - 2024-10-22
+
+- Added account_selection parameter for POST /api/v2/requisitions
+
 ## [1.4.0] - 2024-02-09
 
 - Update base URL form ob.gocardless.com to bankaccountdata.gocardless.com
