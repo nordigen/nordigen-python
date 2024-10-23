@@ -176,6 +176,7 @@ class NordigenClient:
         reference_id: str,
         max_historical_days: int = 90,
         access_valid_for_days: int = 90,
+        account_selection: bool = False,
     ) -> RequisitionDto:
         """
         Factory method that creates authorization in a specific institution
@@ -198,6 +199,7 @@ class NordigenClient:
             "reference_id": reference_id,
             "institution_id": institution_id,
             "agreement": agreement["id"],
+            "account_selection": account_selection,
         }
 
         # Create requisition

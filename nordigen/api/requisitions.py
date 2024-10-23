@@ -50,6 +50,7 @@ class RequisitionsApi:
         institution_id: str = None,
         agreement: List[str] = None,
         user_language: str = None,
+        account_selection: bool = None,
     ) -> Requisition:
         """
         Create requisition for creating links and retrieving accounts.
@@ -76,6 +77,9 @@ class RequisitionsApi:
 
         if agreement:
             payload["agreement"] = agreement
+
+        if account_selection:
+            payload["account_selection"] = account_selection
 
         return self.__client.request(
             HTTPMethod.POST, f"{self.ENDPOINT}/", payload
