@@ -31,7 +31,7 @@ class NordigenClient:
         self,
         secret_key: str,
         secret_id: str,
-        timeout: int = 10,
+        timeout: int = 20,
         base_url: str = "https://bankaccountdata.gocardless.com/api/v2"
     ) -> None:
         self.secret_key = secret_key
