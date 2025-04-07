@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nordigen"
-version = "1.4.1"
+version = "1.4.2"
 description = "Python client for GoCardless Bank Account Data API"
 authors = ["Nordigen Solutions <bank-account-data-support@gocardless.com>"]
 license = "MIT"

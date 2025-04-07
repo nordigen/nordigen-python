@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.2] - 2025-04-07
+
+- Added account_selection parameter for POST /api/v2/requisitions
+
 ## [1.4.1] - 2024-10-22
 
 - Added account_selection parameter for POST /api/v2/requisitions
